@@ -1,0 +1,71 @@
+<div class="entry" *ngIf="entry">
+  <!-- entry controls -->
+  <div class="entry__controls">
+    <select
+      class="entry__type"
+      name="entry_type"
+      [value]="entry.type"
+      (change)="changeType(getValue($event))"
+      style="width: max-content"
+    >
+      <option value="$action">Action</option>
+      <option value="$addition">Addition</option>
+    </select>
+    <span class="entry_grabber">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        role="img"
+        width="1em"
+        height="1em"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 16 16"
+      >
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        >
+          <circle cx="2.5" cy="5.5" r=".75" />
+          <circle cx="8" cy="5.5" r=".75" />
+          <circle cx="13.5" cy="5.5" r=".75" />
+          <circle cx="2.5" cy="10.5" r=".75" />
+          <circle cx="8" cy="10.5" r=".75" />
+          <circle cx="13.5" cy="10.5" r=".75" />
+        </g>
+      </svg>
+    </span>
+  </div>
+
+  <!-- entry data -->
+  <div *ngIf="entry.type === '$action'">
+    <input type="text" name="action" title="action" />
+  </div>
+
+  <div class="addition" *ngIf="entry.type === '$addition'">
+    <label for="ingredient">
+      <span>Ingredient: </span>
+      <input type="text" id="ingredient" name="ingredient" />
+    </label>
+    <label for="measurement">
+      <span>Measurement: </span>
+      <input
+        type="text"
+        id="measurement"
+        name="measurement"
+        ngModel="entry.measurement.quantity"
+        (change)="updateQuantity(getValue($event))"
+      />
+    </label>
+    <label for="unit">
+      <span>Unit: </span>
+      <select id="unit" name="unit">
+        <option value="tbsp" [defaultSelected]="true">Tablespoon</option>
+        <option value="tsp">Teaspoon</option>
+        <option value="cup">Cup</option>
+      </select>
+    </label>
+  </div>
+</div>
